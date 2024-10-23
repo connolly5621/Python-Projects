@@ -1,0 +1,36 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+ </head>
+ <body>
+    <div class="container">
+        <h1>Weather Dashboard</h1>
+        <form method="POST" action="/">
+            <input type="text" name="city" placeholder="Enter city name" required>
+            <label for="units">Select Units:</label>
+            <select name="units" id="units">
+                <option value="metric">Metric (°C)</option>
+                <option value="imperial">Fahrenheit (°F)</option>
+            </select>
+
+            <button type="submit">Get Weather</button>
+        </form>
+
+        {% if weather %}
+            <div class="weather-info">
+                <h2>Weather in {{ weather.city }}</h2>
+                <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Weather Icon">
+                <p>Temperature: {{ weather.temperature }} {{ weather.unit_symbol }}</p>
+                <p>Description: {{ weather.description }}</p>
+                <p>Humidity: {{ weather.humidity }}%</p>
+            </div>
+        {% elif weather == None %}
+            <p>City not found. Please try again.</p>
+        {% endif %}
+    </div>
+ </body>
+ </html>
